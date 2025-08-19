@@ -158,7 +158,7 @@ def parse_letter(text):
 
     general_laws = []
         
-    #normalize "and" to comma and split on comma. 
+    #normalize "and" to a comma and split on comma. 
     for section in gl_sections:
         cleaned_section = section.replace("and", ",")
         split_sections = [s.strip() for s in cleaned_section.split(",") if s.strip()]
@@ -202,7 +202,7 @@ def parse_letter(text):
 
 
 def process_directory(dir_path):
-    ''' function to iterate directory, read files, and set up dataframe
+    ''' function to iterate over the directory, read files, and set up a dataframe
             Args:
                 dir_path (str): file path to directory
     '''
@@ -258,7 +258,7 @@ def process_directory(dir_path):
 #------------------------------
 #Testing
 
-dir_working = r"C:\Users\TAM4027\Documents\_MSLC\attach2"
+dir_working = r"path\to\directory\with\zip"
 
 #convert doc to docx for processing
 doc_to_docx(dir_working)
@@ -267,4 +267,5 @@ df = process_directory(dir_working)
 
 #save output as a csv to working directory (where python file is saved)
 df.to_csv("parsed_email_sumamary.csv", index=False)
+
 print("\nSaved parsed_email_sumamary.csv\n")
