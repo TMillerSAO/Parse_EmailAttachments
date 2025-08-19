@@ -13,9 +13,7 @@ import sys
 
 #define working directory
 
-dir_working = r"C:\Users\TAM4027\Documents\_MSLC"
-# dir_working = "\\\\Sao-bos-fp01\\public\\groups\\AO_DAU\\DAW\\Travis Miller\\Active Audits\\\
-# 2025-0089-3S Massachusetts Lottery Commission (MSLC)\\Audit Documents\\Data\\Emails"
+dir_working = r"path\to\directory\with\zip"
 
 def log_errors(log_file, msg, attachment_filename, error):
     
@@ -36,7 +34,7 @@ def log_errors(log_file, msg, attachment_filename, error):
 #clean up null characters        
 def sanatize_filename(filename):
     '''
-    Cleans up inputted string of null characters, null bits, or illegal characters.
+    Cleans up the input string of null characters, null bits, or illegal characters.
     Returns cleaned string or attachment.bin if NONE
     
     Args:
@@ -60,7 +58,7 @@ def extract_attachments(msg_path,
                         level = 0, 
                         log_file = "extraction_error.log"):
     '''
-    Extracts attachments from .msg or .zip.
+    Extract attachments from .msg or .zip.
 
     Args:
 
@@ -116,7 +114,7 @@ def extract_attachments(msg_path,
                     continue
     
                 else:
-                    #saves attachment to email sub-folder of attachment directorty
+                    #saves attachment to email sub-folder of attachment directory
                     print(f"   Saving new item {attachment_filename} to {dir_cur_output}")
                     
                     #if attachment is a message object, append .msg and save
@@ -134,7 +132,7 @@ def extract_attachments(msg_path,
                         extract_attachments(attachment_path, dir_cur_output, level+1)
                     
                     #if attachment is a .zip, redo unzip_folder and save insides
-                    #Each .zip attachment in this case contained .doc or .pdf so don't have to redo processing
+                    #Each .zip attachment in this case contained .doc or .pdf, so don't have to redo processing
                     elif attachment_filename.endswith(".zip"):
                         try:
                             #needs to be bytes
@@ -147,7 +145,7 @@ def extract_attachments(msg_path,
                           
                         #current output directory will be save location for attachment extract
                         #"email name" in result will be email containing the zip file. 
-                            #i.e. nested attachments will be attributed to highest email    
+                            #i.e., nested attachments will be attributed to highest email    
                         unzip_folder(attachment_path,
                                      dir_unzipped = dir_cur_output,
                                      att_process_needed = False)
@@ -155,7 +153,7 @@ def extract_attachments(msg_path,
                     else:
                         #see if there are null bytes in path
                         if '\x00' in str(attachment_path):
-                            #if so, kill program cause that needs to be addressed
+                            #if so, kill program because that needs to be addressed
                             sys.exit()
                         else:
                             try:
@@ -232,7 +230,7 @@ def unzip_folder(ZipPath,
     #clear error log
     open("extraction_error.log", "w").close()
     
-    #creates directory to store unzipped files
+    #creates a directory to store unzipped files
     if not os.path.exists(dir_unzipped):
         os.makedirs(dir_unzipped)
 
@@ -267,6 +265,7 @@ zip_file_2 = dir_working + r'\Tobacco Enforcement Letters_87.zip'
 unzip_folder(ZipPath = zip_file_1,
                dir_unzipped = dir_working + "\\unzipped2",
                dir_attachment = dir_working + "\\attach2")
+
 
 
 
